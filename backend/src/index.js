@@ -5,6 +5,7 @@ import sqlite3 from "sqlite3";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import csrf from "csurf";
+import productRoute from "./modules/product/productRoute.js";
 
 // Initialise le middleware CSRF avec des options
 const csrfProtection = csrf({ cookie: true });
@@ -14,7 +15,7 @@ const csrfProtection = csrf({ cookie: true });
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(csrfProtection);
+// app.use(csrfProtection);
 
 app.use(
   cors({
@@ -32,10 +33,19 @@ db.serialize(() => {
   db.run(
     " CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT, password TEXT, fullname TEXT)"
   );
+  db.run(
+    " CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, libelle varchar(500), description TEXT, Prix TEXT, Catégorie TEXT)"
+  );
+
+  db.run(
+    "CREATE TABLE IF NOT EXISTS images (id INTEGER PRIMARY KEY, image VARCHAR(500), productId INTEGER, FOREIGN KEY(productId) REFERENCES products(id))"
+  );
 });
 
 //Appel des routes auth
 app.use(authRoute);
+//Appel des routes produits
+app.use(productRoute);
 
 app.get("/csrf-token", (req, res) => {
   // Générer un jeton CSRF
