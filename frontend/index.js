@@ -26,6 +26,11 @@ app.use(express.static(path.join(__dirname)));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'home.html'));
 });
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login','login.html'));
+});
+
 const PORT = 9000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
