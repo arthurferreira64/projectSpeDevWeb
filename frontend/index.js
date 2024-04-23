@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import * as path from "node:path";
 
 const app = express();
@@ -10,11 +10,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(
-    cors({
-        origin: "http://localhost:9000",
-        methods: "GET,POST,PUT,DELETE,PATCH",
-        credentials: true,
-    })
+  cors({
+    origin: "http://localhost:9000",
+    methods: "GET,POST,PUT,DELETE,PATCH",
+    credentials: true,
+  })
 );
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,15 +23,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname)));
 
 // Route pour afficher la page d'accueil (home.html)
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'home.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "home.html"));
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login','login.html'));
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "login", "login.html"));
+});
+
+app.get("/register", (req, res) => {
+  res.sendFile(path.join(__dirname, "register", "register.html"));
 });
 
 const PORT = 9000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
