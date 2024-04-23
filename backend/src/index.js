@@ -15,7 +15,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(csrfProtection);
-app.set("view engine", "ejs");
 
 app.use(
   cors({
@@ -43,15 +42,6 @@ app.get("/csrf-token", (req, res) => {
   const csrfToken = req.csrfToken();
   // Renvoyer le jeton CSRF dans la réponse
   res.json({ csrfToken });
-});
-
-app.get("/", async (req, res) => {
-  try {
-    res.render("home");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Internal Server Error");
-  }
 });
 
 const PORT = 3000;
