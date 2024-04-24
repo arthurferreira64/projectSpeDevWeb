@@ -1,3 +1,16 @@
+//Fonction qui regarde si le user est connecté ou pas
+function userIsLogged() {
+  return (
+    fetch("http://localhost:3000/verify")
+      // Etape 1 : Je vais chercher les données
+      .then((res) => res.json())
+      // Etape 2 : Je ne récupère que ce qui m'intéresse
+      .then((data) => (document.getElementById("csrf").value = data.csrfToken))
+    // Etape 3 : ne récupérer que ce qui m'intéresse dans les personnes
+    // et aussi changer les noms des propriétés
+  );
+}
+
 //CSRF
 
 function getCSRF() {
@@ -85,15 +98,20 @@ if (document.getElementById("loginForm")) {
 
       const username = document.getElementById("usernameLogin").value;
       const password = document.getElementById("passwordLogin").value;
+      const csrf = document.getElementById("csrf").value;
 
-      console.log(password);
+      console.log({
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-CSRF-Token": csrf,
+      });
+
       fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          CSRF: csrf,
         },
-        credentials: "include",
         body: JSON.stringify({
           identifiant: username,
           motdepasse: password,
@@ -101,16 +119,12 @@ if (document.getElementById("loginForm")) {
         }),
       })
         .then((res) => {
-          console.log("ici");
-          if (response.ok) {
-            // Redirect to the dashboard upon successful login
-          } else {
-            // Handle other response statuses (e.g., authentication failure)
-          }
+          window.location.href = "/dashboard";
+          // Redirect to the dashboard upon successful login
         })
         .catch((err) => {
           //Si echec
-          console.log(err);
+          alert("Erreur dans la connexion, veuillez réessayer");
         });
     });
 }
@@ -135,20 +149,12 @@ if (document.getElementById("registerForm")) {
         return;
       }
 
-      console.log({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-CSRF-Token": csrf,
-      });
-
       fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
-          "X-CSRF-Token": csrf,
+          CSRF: csrf,
         },
-        credentials: "include",
         body: JSON.stringify({
           identifiant: username,
           fullname: fullname,
@@ -156,16 +162,11 @@ if (document.getElementById("registerForm")) {
         }),
       })
         .then((res) => {
-          console.log("ici");
-          if (response.ok) {
-            // Redirect to the dashboard upon successful login
-          } else {
-            // Handle other response statuses (e.g., authentication failure)
-          }
+          window.location.href = "/dashboard";
         })
         .catch((err) => {
           //Si echec
-          console.log(err);
+          alert("Erreur dans l'inscription, veuillez réessayer");
         });
     });
 }

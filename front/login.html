@@ -24,6 +24,8 @@
         <div class="connexion">
           <div class="contact-form">
             <form id="loginForm">
+              <input placeholder="" type="hidden" id="csrf" />
+
               <label>EMAIL</label>
               <input placeholder="" type="email" id="usernameLogin" required />
 
@@ -44,5 +46,8 @@
       </div>
     </div>
     <script src="index.js"></script>
+    <script>
+      getCSRF();
+    </script>
   </body>
 </html>

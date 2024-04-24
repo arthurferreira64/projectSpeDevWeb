@@ -12,7 +12,6 @@ const secretKey = "fds4gfqdsJ5KDLjlf7Jdion8oifd9iOfnJoin$$$28fdsfdKofkDpfkdj";
 export async function registerUserController(req, res) {
   //On recupere les infos
   const { identifiant, fullname, motdepasse } = req.body;
-  console.log(req.headers);
   try {
     //On créé le user
     const message = await registerUser(identifiant, fullname, motdepasse);
@@ -25,6 +24,8 @@ export async function registerUserController(req, res) {
       secretKey,
       { expiresIn: "1h" }
     );
+
+    console.log(token);
     res.cookie("token", token, { sameSite: "Lax" });
     //En cas de succès
     res.status(200).json({ statut: "Succès", message });
@@ -53,6 +54,8 @@ export async function loginUserController(req, res) {
         secretKey,
         { expiresIn: "1h" }
       );
+      console.log(token);
+
       res.cookie("token", token, { sameSite: "Lax" });
 
       //En cas de succès

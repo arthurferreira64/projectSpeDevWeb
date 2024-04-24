@@ -4,26 +4,36 @@ import authRoute from "./modules/auth/authRoute.js";
 import sqlite3 from "sqlite3";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import csrf from "csurf";
+import csrf from "csrf";
 import productRoute from "./modules/product/productRoute.js";
 
 // Initialise le middleware CSRF avec des options
-const csrfProtection = csrf({ cookie: true });
+const tokens = new csrf();
+const secret = tokens.secretSync();
 
 // Utilise le middleware CSRF pour générer et stocker le jeton CSRF dans la session utilisateur
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(csrfProtection);
+
+// Ajout du middleware CSRF ici
 
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: "GET,POST,PUT,DELETE,PATCH",
-    credentials: true,
+    methods: "*",
+    // methods: "GET,POST,PUT,DELETE,PATCH",
   })
 );
+
+app.use(function (req, res, next) {
+  const { csrf } = req.headers;
+  if (req.method !== "GET" && !tokens.verify(secret, csrf)) {
+    return res.status(403).json({ error: "Jeton CSRF invalide !" });
+  }
+  next();
+});
 
 // Créez une instance de la base de données SQLite
 export const db = new sqlite3.Database("user.db");
@@ -49,7 +59,7 @@ app.use(productRoute);
 
 app.get("/csrf-token", (req, res) => {
   // Générer un jeton CSRF
-  const csrfToken = req.csrfToken();
+  const csrfToken = tokens.create(secret);
   // Renvoyer le jeton CSRF dans la réponse
   res.json({ csrfToken });
 });
