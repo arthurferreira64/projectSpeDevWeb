@@ -7,12 +7,13 @@
     <title>Produits</title>
   </head>
   <body>
-    <div>
+  <h1 style="text-align: center">Listes de tous les produits</h1>
+    <div style="text-align: right; margin-bottom: 10px">
       <label for="search">Recherche</label>
       <input type="text" id="search" name="search" />
     </div>
     <div id="users"></div>
-    <script src="index.js"></script>
+    <script src="produits.js"></script>
     <script>
       appendToDomProducts(getProducts());
 
@@ -22,5 +23,16 @@
           appendToDomProducts(filterProducts(getProducts()))
         );
     </script>
+  <style>
+      .table-bordered {
+          border-collapse: collapse;
+          border: 2px solid black;
+      }
+      .table-bordered th, .table-bordered td {
+          border: 2px solid black;
+          padding: 8px;
+          text-align: center;
+      }
+  </style>
   </body>
 </html>

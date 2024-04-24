@@ -26,66 +26,6 @@ function getCSRF() {
 }
 
 //Produits ---------------------------------
-
-function getProducts() {
-  return (
-    fetch("http://localhost:3000/product")
-      // Etape 1 : Je vais chercher les données
-      .then((res) => res.json())
-      // Etape 2 : Je ne récupère que ce qui m'intéresse
-      .then((data) => data.products)
-      // Etape 3 : ne récupérer que ce qui m'intéresse dans les personnes
-      // et aussi changer les noms des propriétés
-      .then((products) =>
-        products.map((el) => ({
-          titre: el.libelle,
-          description: el.description,
-          prix: el.prix,
-          categorie: el.categorie,
-        }))
-      )
-  );
-}
-function appendToDomProducts(promise) {
-  // Etape 4 : Transformer les données en HTML
-  return (
-    promise
-      .then((products) =>
-        products.map(
-          ({ titre, description, prix, categorie }) =>
-            `
-<div class="card">
-    <h2>${titre}</h2>
-    <p>
-        ${description}<br>
-        ${prix} - ${categorie} ans
-    </p>
-</div>
-`
-        )
-      )
-      // Etape 5 : On vide la liste des personnes
-      .then((personnes) => {
-        document.querySelector("#users").innerHTML = "";
-        return personnes;
-      })
-      // Etape 6 : On intègre les nouvelles personnes au DOM
-      .then((personnes) =>
-        personnes.map((personne) => {
-          document.querySelector("#users").innerHTML += personne;
-        })
-      )
-  );
-}
-
-function filterProducts(promise) {
-  return promise.then((personnes) =>
-    personnes.filter(
-      (personne) =>
-        personne.titre.indexOf(document.querySelector("#search").value) !== -1
-    )
-  );
-}
 //Produits ---------------------------------
 
 //Login -------

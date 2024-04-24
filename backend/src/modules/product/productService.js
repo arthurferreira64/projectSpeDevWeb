@@ -109,7 +109,7 @@ export async function getProductByIdService(productId) {
 export async function getProductCountByCategoryService() {
     return new Promise((resolve, reject) => {
         db.all(
-            "SELECT categorie AS nom, COUNT(*) AS nombre FROM products GROUP BY categorie",
+            "SELECT categorie AS name, COUNT(*) AS number FROM products GROUP BY categorie",
             (err, rows) => {
                 if (err) {
                     reject(new Error("Error fetching product counts by category: " + err));
