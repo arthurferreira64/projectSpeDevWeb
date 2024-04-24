@@ -1,11 +1,11 @@
 import {
-  deleteImages,
-  deleteProductService,
-  getAllProductsService,
-  getProductByIdService,
-  insertImage,
-  insertProduct,
-  updateProductService,
+    deleteImages,
+    deleteProductService,
+    getAllProductsService,
+    getProductByIdService, getProductCountByCategoryService,
+    insertImage,
+    insertProduct,
+    updateProductService,
 } from "./productService.js";
 
 export async function createProduct(req, res) {
@@ -107,4 +107,13 @@ export async function getProduct(req, res) {
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
+}
+
+export async function getProductCountByCategory(req, res) {
+    try {
+        const productCounts = await getProductCountByCategoryService();
+        res.status(200).json({ status: "Success", productCounts });
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 }
