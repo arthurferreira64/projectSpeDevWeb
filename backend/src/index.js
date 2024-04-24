@@ -15,7 +15,7 @@ const csrfProtection = csrf({ cookie: true });
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(csrfProtection);
+app.use(csrfProtection);
 
 app.use(
   cors({

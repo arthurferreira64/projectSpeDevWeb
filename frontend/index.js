@@ -48,6 +48,7 @@ app.post("/login", (req, res) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      // "X-CSRF-Token": csrf,
     },
     credentials: "include",
     body: JSON.stringify({ identifiant: username, motdepasse: password }),
@@ -81,6 +82,7 @@ app.post("/register", (req, res) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      "X-CSRF-Token": csrf,
     },
     credentials: "include",
     body: {

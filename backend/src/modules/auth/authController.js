@@ -12,6 +12,7 @@ const secretKey = "fds4gfqdsJ5KDLjlf7Jdion8oifd9iOfnJoin$$$28fdsfdKofkDpfkdj";
 export async function registerUserController(req, res) {
   //On recupere les infos
   const { identifiant, fullname, motdepasse } = req.body;
+  console.log(req.headers);
   try {
     //On créé le user
     const message = await registerUser(identifiant, fullname, motdepasse);
