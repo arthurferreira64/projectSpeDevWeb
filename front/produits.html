@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <link rel="stylesheet" href="index.css" /> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produits</title>
+  </head>
+  <body>
+    <div>
+      <label for="search">Recherche</label>
+      <input type="text" id="search" name="search" />
+    </div>
+    <div id="users"></div>
+    <script src="index.js"></script>
+    <script>
+      appendToDomProducts(getProducts());
+
+      document
+        .querySelector("#search")
+        .addEventListener("keyup", () =>
+          appendToDomProducts(filterProducts(getProducts()))
+        );
+    </script>
+  </body>
+</html>

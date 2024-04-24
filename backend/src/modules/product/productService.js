@@ -5,7 +5,7 @@ export async function insertProduct(productData) {
 
   return new Promise((resolve, reject) => {
     db.run(
-      "INSERT INTO products (libelle, description, prix, catégorie) VALUES (?, ?, ?, ?)",
+      "INSERT INTO products (libelle, description, prix, categorie) VALUES (?, ?, ?, ?)",
       [libelle, description, prix, categorie],
       function (err) {
         if (err) {
@@ -24,7 +24,7 @@ export async function updateProductService(productId, updatedProductData) {
 
   return new Promise((resolve, reject) => {
     db.run(
-      "UPDATE products SET libelle = ?, description = ?, prix = ?, catégorie = ? WHERE id = ?",
+      "UPDATE products SET libelle = ?, description = ?, prix = ?, categorie = ? WHERE id = ?",
       [libelle, description, prix, categorie, productId],
       function (err) {
         if (err) {

@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     methods: "GET,POST,PUT,DELETE,PATCH",
     credentials: true,
   })
@@ -34,7 +34,7 @@ db.serialize(() => {
     " CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT, password TEXT, fullname TEXT)"
   );
   db.run(
-    " CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, libelle varchar(500), description TEXT, Prix TEXT, Catégorie TEXT)"
+    " CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, libelle varchar(500), description TEXT, prix TEXT, categorie TEXT)"
   );
 
   db.run(

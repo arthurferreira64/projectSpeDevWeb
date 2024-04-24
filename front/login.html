@@ -1,5 +1,5 @@
 <html>
-  <link rel="stylesheet" href="register.css" />
+  <link rel="stylesheet" href="index.css" />
   <body>
     <h1>Login & registration Form</h1>
     <div class="info">
@@ -16,25 +16,26 @@
           alt=""
         />
         <div class="menu">
-          <a href="/login" class="btn-connexion active"><h2>SIGN IN</h2></a>
-          <a href="/register" class="btn-enregistrer"><h2>SIGN UP</h2></a>
+          <a href="/login" class="btn-connexion"><h2>SIGN IN</h2></a>
+          <a href="/register" class="btn-enregistrer active"
+            ><h2>SIGN UP</h2></a
+          >
         </div>
         <div class="connexion">
           <div class="contact-form">
-            <form action="/register" method="POST">
-              <label>FULLNAME</label>
-              <input placeholder="" type="text" name="fullname" />
-
-              <label>E-MAIL</label>
-              <input placeholder="" type="text" name="username" />
+            <form id="loginForm">
+              <label>EMAIL</label>
+              <input placeholder="" type="email" id="usernameLogin" required />
 
               <label>PASSWORD</label>
-              <input placeholder="" type="password" name="password" />
+              <input
+                placeholder=""
+                type="password"
+                id="passwordLogin"
+                required
+              />
 
-              <label>CONFIRM PASSWORD</label>
-              <input placeholder="" type="password" name="repeat" />
-
-              <input class="submit" value="SIGN UP" type="submit" />
+              <input class="submit" value="SIGN IN" type="submit" />
             </form>
           </div>
 

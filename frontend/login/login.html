@@ -23,19 +23,18 @@
         </div>
         <div class="connexion">
           <div class="contact-form">
-            <label>USERNAME</label>
-            <input placeholder="" type="text" />
+            <form action="/login" method="POST">
+              <label>EMAIL</label>
+              <input placeholder="" type="email" name="username" />
 
-            <label>PASSWORD</label>
-            <input placeholder="" type="text" />
+              <label>PASSWORD</label>
+              <input placeholder="" type="password" name="password" />
 
-            <input class="submit" value="SIGN IN" type="submit" />
+              <input class="submit" value="SIGN IN" type="submit" />
+            </form>
           </div>
 
           <hr />
-          <a href="https://www.grandvincent-marion.fr/" target="_blank"
-            ><h4>Forgot password?</h4></a
-          >
         </div>
       </div>
     </div>
