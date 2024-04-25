@@ -17,11 +17,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         const product = await getProductById(productId);
         if (product) {
             document.querySelector("#details").innerHTML = `
-                    <h1 style="text-align: center"> Information de ${product.name} </h1>
-                   <div class="bg-white p-4 rounded-lg shadow-md">
-                    <h3 class="text-lg font-semibold">${product.name}</h3>
-                    <p class="text-gray-600">${product.description}</p>
-                    <p class="text-gray-800 font-bold mt-2">${product.price} €</p>
+                    <h1 style="text-align: center; font-size: xx-large;"> Information de ${product.name} </h1>
+                   <div style="margin-left: 10px">
+                    <p>${product.description}</p>
+                    <p>${product.price} €</p>
                 </div>
             `;
         } else {
