@@ -31,12 +31,16 @@ function appendToDomProducts(promise) {
                             <td style="text-align: center">${description}</td>
                             <td style="text-align: center">${prix}</td>
                             <td style="text-align: center">${categorie}</td>
-                            <td><button onclick="openProduct(${id})"><i class="fas fa-eye"></i></button></td>
+                            <td>
+                            <button onclick="openProduct(${id})"><i class="fas fa-eye"></i></button>
+                            <button style="margin-left: 5px" onclick="addToCart(${id}, '${titre}', '${description}', ${prix}, '${categorie}')"><i class="fas fa-cart-plus"></i></button>
+                            <button style="margin-left: 5px" onclick="deleteProduct(${id})"><i class="fas fa-trash-alt" style="color: red;"></i></button>
+                        </td>
                         </tr>
                     `
                     ).join("");
 
-                document.querySelector("#users").innerHTML = `<div class="card">
+                    document.querySelector("#users").innerHTML = `<div class="card">
                     <table class="table-bordered" style="width: 100%">
                         <tr>
                             <th>Nom</th>
@@ -68,4 +72,43 @@ function filterProducts(promise) {
 function openProduct(id) {
     console.log(id)
     window.location.href = `../one-product/one-product.html?id=${id}`;
+}
+
+function deleteProduct(id) {
+    const csrf = document.getElementById("csrf").value;
+    return fetch(`http://localhost:3000/product/${id}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            CSRF: csrf,
+        },
+    })
+        .then(response => response.json())
+        .then(data => data)
+        .catch(error => console.error('Erreur lors de la suppression du produit :', error));
+}
+
+function addToCart(id, titre, description, prix, categorie) {
+    const product = {
+        id: id,
+        titre: titre,
+        description: description,
+        prix: prix,
+        qty: 1,
+        categorie: categorie,
+    }
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log(cart);
+
+    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].qty += 1;
+        console.log(`La quantité du produit avec l'ID ${product.id} a été augmentée à ${cart[existingProductIndex].qty}.`);
+    } else {
+        cart.push(product);
+        console.log(`Le produit avec l'ID ${product.id} a été ajouté au panier.`);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
 }

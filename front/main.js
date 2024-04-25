@@ -1,6 +1,10 @@
 //Composant navbar qui s'insere dans une balise avec l'id 'nav'
 
 document.querySelector("#nav").innerHTML = `
+  <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          rel="stylesheet"
+  />
 <nav class="bg-white border-gray-200">
 <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
   <div class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -48,6 +52,26 @@ document.querySelector("#nav").innerHTML = `
               aria-current="page"
             >
               Statistique
+              </a>
+          </li>
+           <li>
+            <a
+              href="/product/add-product/add-product.html"
+              id="add-product"
+              class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0  md:text-gray-900"
+              aria-current="page"
+            >
+              Ajouter un produit
+              </a>
+          </li>
+          <li>
+            <a
+              href="/cart/cart.html"
+              id="cart"
+              class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0  md:text-gray-900"
+              aria-current="page"
+            >
+              <i class="fa fa-shopping-cart" style="margin-right: 5px"></i>Panier
               </a>
           </li>
           
@@ -100,6 +124,7 @@ function userIsLogged() {
           //Si pas connecté redirection vers login si c'est pas le cas
           if (res.status === 400) {
             document.querySelector("#logout").classList.add("hidden");
+            document.querySelector("#add-product").classList.add("hidden");
             document.querySelector("#login").classList.remove("hidden");
 
             if (window.location.pathname === "/dashboard") {
@@ -107,6 +132,7 @@ function userIsLogged() {
             }
             return;
           }
+          document.querySelector("#add-product").classList.remove("hidden");
           document.querySelector("#logout").classList.remove("hidden");
           document.querySelector("#login").classList.add("hidden");
           //Si connecté impossible d'aller sur login
