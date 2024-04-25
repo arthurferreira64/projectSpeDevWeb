@@ -1,23 +1,34 @@
 import {
-    deleteImages,
-    deleteProductService,
-    getAllProductsService,
-    getProductByIdService, getProductCountByCategoryService,
-    insertImage,
-    insertProduct,
-    updateProductService,
+  deleteImages,
+  deleteProductService,
+  getAllProductsService,
+  getProductByIdService,
+  getProductCountByCategoryService,
+  insertImage,
+  insertProduct,
+  updateProductService,
 } from "./productService.js";
 
 export async function createProduct(req, res) {
-  const { product, images } = req.body;
-
-  const token = req.cookies.token;
+  const { name, description, price, categorie } = req.body;
 
   try {
     //On verifie le token
     // const decoded = jwt.verify(token, secretKey);
     // if (decoded) {
     //On créé le produit
+
+    const images = req.files.map((el) => el.filename);
+
+    // const uploadedFile = req.files.image0;
+
+    // console.log(uploadedFile);
+    const product = {
+      name,
+      description,
+      price,
+      categorie,
+    };
     const productId = await insertProduct(product);
 
     //On créé les images
@@ -110,10 +121,10 @@ export async function getProduct(req, res) {
 }
 
 export async function getProductCountByCategory(req, res) {
-    try {
-        const productCounts = await getProductCountByCategoryService();
-        res.status(200).json({ status: "Success", productCounts });
-    } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+  try {
+    const productCounts = await getProductCountByCategoryService();
+    res.status(200).json({ status: "Success", productCounts });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }

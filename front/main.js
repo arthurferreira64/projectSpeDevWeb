@@ -148,10 +148,10 @@ let metaTag = document.createElement("meta");
 const nonce = (Math.random() + 1).toString(36).substring(2);
 
 metaTag.setAttribute("http-equiv", "Content-Security-Policy");
-metaTag.setAttribute(
-  "content",
-  `form-action 'self'; img-src 'none'; style-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'sha256-SOHhLX6uYgxUm6GqAfZoFtI6B+jag8IEw+xtCNel45E='; script-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self';`
-);
+// metaTag.setAttribute(
+//   "content",
+//   `form-action 'self'; img-src 'none'; style-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'sha256-SOHhLX6uYgxUm6GqAfZoFtI6B+jag8IEw+xtCNel45E='; script-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self';`
+// );
 
 // Ajouter la balise meta au header du document
 document.head.appendChild(metaTag);
