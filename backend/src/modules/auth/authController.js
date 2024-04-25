@@ -24,11 +24,9 @@ export async function registerUserController(req, res) {
       secretKey,
       { expiresIn: "1h" }
     );
-
-    console.log(token);
-    res.cookie("token", token, { sameSite: "Lax" });
+    // res.cookie("token", token, { sameSite: "Lax" });
     //En cas de succès
-    res.status(200).json({ statut: "Succès", message });
+    res.status(200).json({ statut: "Succès", message, token });
   } catch (error) {
     //En cas de mauvaise syntaxe du JSON de la requête
     res.status(400).json({ statut: "Erreur", message: "JSON incorrect" });
@@ -54,14 +52,13 @@ export async function loginUserController(req, res) {
         secretKey,
         { expiresIn: "1h" }
       );
-      console.log(token);
-
-      res.cookie("token", token, { sameSite: "Lax" });
+      // res.cookie("token", token, { sameSite: "Lax" });
 
       //En cas de succès
       res.status(200).json({
         statut: "Succès",
         message: "Authentication successful",
+        token,
       });
     } else {
       //En cas de mauvais identifiants

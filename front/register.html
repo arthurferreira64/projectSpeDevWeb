@@ -1,70 +1,75 @@
 <html>
-  <link rel="stylesheet" href="index.css" />
-  <body>
-    <h1>Login & registration Form</h1>
-    <div class="info">
-      <a href="https://www.grandvincent-marion.fr" target="_blank"
-        ><p>Made with <i class="fa fa-heart"></i> by Marion Grandvincent</p></a
-      >
-    </div>
+  <!-- <link rel="stylesheet" href="index.css" /> -->
+  <link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+  <body class="bg-gray-100">
+    <div id="nav"></div>
+    <div
+    class="flex items-center justify-center h-screen">
+    <div class="bg-white w-1/2 max-w-xl p-6 rounded-lg min-w-[300px] shadow-md">
+      <div class="text-center text-lg font-bold text-blue">
+        S'inscrire
+      </div>
 
-    <div class="content">
-      <div class="container">
-        <img
-          class="bg-img"
-          src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/bg.jpg"
-          alt=""
-        />
-        <div class="menu">
-          <a href="/login" class="btn-connexion active"><h2>SIGN IN</h2></a>
-          <a href="/register" class="btn-enregistrer"><h2>SIGN UP</h2></a>
-        </div>
-        <div class="connexion">
-          <div class="contact-form">
-            <form id="registerForm">
-              <input placeholder="" type="hidden" id="csrf" />
-              <label>FULLNAME</label>
-              <input
-                placeholder=""
-                type="text"
-                id="fullnameRegister"
-                required
-              />
+      <div>
+        <form id="registerForm" class="flex flex-col">
+          <input placeholder="" type="hidden" id="csrf" />
+          <label class="text-[12px] text-gray-700">Nom complet</label>
+          <input
+            placeholder=""
+            type="text"
+            id="fullnameRegister"
+            required
+            class="text-primary bg-transparent bg-blue border rounded-lg text-sm focus:ring-blue2 focus:border-blue2 focus:bg-secondary focus:outline-none block w-full p-2" />
 
-              <label>E-MAIL</label>
-              <input
-                placeholder=""
-                type="email"
-                id="usernameRegister"
-                required
-              />
+          <label class="text-[12px] text-gray-700">E-mail</label>
+          <input
+            placeholder=""
+            type="email"
+            id="usernameRegister"
+            required
+            class="text-primary bg-transparent bg-blue border rounded-lg text-sm focus:ring-blue2 focus:border-blue2 focus:bg-secondary focus:outline-none block w-full p-2" />
 
-              <label>PASSWORD</label>
-              <input
-                placeholder=""
-                type="password"
-                id="passwordRegister"
-                required
-              />
+          <label class="text-[12px] text-gray-700">Mot de passe</label>
+          <input
+            placeholder=""
+            type="password"
+            id="passwordRegister"
+            required
+            class="text-primary bg-transparent bg-blue border rounded-lg text-sm focus:ring-blue2 focus:border-blue2 focus:bg-secondary focus:outline-none block w-full p-2" />
 
-              <label>CONFIRM PASSWORD</label>
-              <input
-                placeholder=""
-                type="password"
-                id="repeatRegister"
-                required
-              />
+          <label class="text-[12px] text-gray-700">Confirmer le mot de passe</label>
+          <input
+            placeholder=""
+            type="password"
+            id="repeatRegister"
+            required
+            class="text-primary bg-transparent bg-blue border rounded-lg text-sm focus:ring-blue2 focus:border-blue2 focus:bg-secondary focus:outline-none block w-full p-2" />
 
-              <input class="submit" value="SIGN UP" type="submit" />
-            </form>
-          </div>
-          <hr />
-        </div>
+          <button class="bg-blue-500 mt-4 border border-gray-500  rounded-lg py-2 px-4 cursor-pointer transition duration-200 hover:bg-blue-600 text-sm flex justify-center text-white" type="submit">S'inscrire</button>
+        </form>
+
+      </div>
+      <div class="text-center mt-4 text-xs">
+        Vous avez déjà un compte ? &nbsp;
+        <a href="/login" class="font-bold text-blue-500">
+          Se connecter
+        </Link>
       </div>
     </div>
+  </div>
     <script src="index.js"></script>
+    <script type="module" src="/main.js"></script>
     <script>
+      // userIsLogged();
       getCSRF();
     </script>
   </body>
 </html>
+
+
+
+
+
