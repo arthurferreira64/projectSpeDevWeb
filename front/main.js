@@ -50,7 +50,17 @@ document.querySelector("#nav").innerHTML = `
               aria-current="page"
             >
               Produits
-            </Link>
+              </a>
+          </li>
+           <li>
+            <a
+              href="/product/statistic/statistic.html"
+              id="statistic"
+              class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0  md:text-gray-900"
+              aria-current="page"
+            >
+              Statistique
+              </a>
           </li>
           
 </>
@@ -107,7 +117,6 @@ function userIsLogged() {
             }
             return;
           }
-
           document.querySelector("#logout").classList.remove("hidden");
           document.querySelector("#login").classList.add("hidden");
           //Si connecté impossible d'aller sur login
