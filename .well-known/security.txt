@@ -1,0 +1,20 @@
+# Contact information
+Contact: tom.lebrun@livecampus.tech.com
+Contact: arthur.ferreiramacias@livecampus.tech
+Contact: http://localhost:5173/security
+
+# Encryption
+Encryption: http://localhost:5173/pgp-key.txt
+
+# Preferred languages
+Preferred-Languages: en, fr
+
+# Acknowledgments
+Acknowledgments: http://localhost:5173/security/hall-of-fame
+
+# Policy
+Policy: http://localhost:5173/security/responsible-disclosure-policy
+
+
+# Expires
+Expires: Tue, 31 Dec 2024 23:59:59 GMT

@@ -1,3 +1,5 @@
+//Composant navbar qui s'insere dans une balise avec l'id 'nav'
+
 document.querySelector("#nav").innerHTML = `
 <nav class="bg-white border-gray-200">
 <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -16,21 +18,7 @@ document.querySelector("#nav").innerHTML = `
     aria-expanded="false"
   >
     <span class="sr-only">Open main menu</span>
-    <svg
-      class="w-5 h-5"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 17 14"
-    >
-      <path
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M1 1h15M1 7h15M1 13h15"
-      />
-    </svg>
+   
   </button>
   <div class="hidden w-full md:block md:w-auto" id="navbar-default">
     <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white md:items-center">
@@ -55,7 +43,7 @@ document.querySelector("#nav").innerHTML = `
           
 </>
 
-        <a class="pointer" id="logout">
+        <a class="cursor-pointer" id="logout">
           Se déconnecter
         </a>
         <a
@@ -71,11 +59,13 @@ document.querySelector("#nav").innerHTML = `
 </nav>
 `;
 
+// Au clique sur la balise logout on supprime le cookie et on redirige le user
 document.getElementById("logout").onclick = function () {
   deleteCookie("token");
   window.location.href = "/";
 };
 
+//Fonction qui supprime un cookie
 function deleteCookie(nom) {
   document.cookie = nom + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
@@ -141,3 +131,18 @@ function getCookie(name) {
 }
 
 userIsLogged();
+
+let metaTag = document.createElement("meta");
+
+// Définir les attributs de la balise meta
+
+const nonce = (Math.random() + 1).toString(36).substring(2);
+
+metaTag.setAttribute("http-equiv", "Content-Security-Policy");
+metaTag.setAttribute(
+  "content",
+  `form-action 'self'; img-src 'none'; style-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'sha256-SOHhLX6uYgxUm6GqAfZoFtI6B+jag8IEw+xtCNel45E='; script-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self';`
+);
+
+// Ajouter la balise meta au header du document
+document.head.appendChild(metaTag);

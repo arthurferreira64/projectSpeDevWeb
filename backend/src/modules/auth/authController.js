@@ -13,6 +13,15 @@ export async function registerUserController(req, res) {
   //On recupere les infos
   const { identifiant, fullname, motdepasse } = req.body;
   try {
+    var pattern =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?\/>\\.<,])(?=.*[^\s]).{8,}$/;
+    //Si pas robuste on sort sinon on passe a la suite
+    if (!pattern.test(motdepasse)) {
+      res
+        .status(400)
+        .json({ statut: "Erreur", message: "Mot de passe non robuste" });
+    }
+
     //On créé le user
     const message = await registerUser(identifiant, fullname, motdepasse);
     //On créé le token

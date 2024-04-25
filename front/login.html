@@ -1,9 +1,14 @@
 <html>
   <!-- <link rel="stylesheet" href="index.css" /> -->
-  <link
-  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-  rel="stylesheet"
-/>
+  <head>
+
+  
+    <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+   
+  </head>
   <body class="bg-gray-100">
     <div id="nav"></div>
     <div
@@ -33,9 +38,9 @@
             required
             class="text-primary bg-transparent bg-blue border rounded-lg text-sm focus:ring-blue2 focus:border-blue2 focus:bg-secondary focus:outline-none block w-full p-2"
           />
-
           <button class="bg-blue-500 mt-4 border border-gray-500  rounded-lg py-2 px-4 cursor-pointer transition duration-200 hover:bg-blue-600 text-sm flex justify-center text-white" type="submit">Se connecter</button>
         </form>
+        <span id="passwordError" style="color: red;"></span><br>
       </div>
       <div class="text-center mt-4 text-xs">
         Vous n’avez pas encore de compte ? &nbsp;

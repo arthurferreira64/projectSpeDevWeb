@@ -30,7 +30,7 @@ function userIsLogged() {
 
           document.querySelector("#logout").classList.remove("hidden");
           document.querySelector("#login").classList.add("hidden");
-          //Si connecté impossible d'aller sur login
+          //Si connecté impossible d'aller sur login ou le register
           if (
             window.location.pathname === "/login" ||
             window.location.pathname === "/register"
@@ -50,8 +50,6 @@ function getCSRF() {
       .then((res) => res.json())
       // Etape 2 : Je ne récupère que ce qui m'intéresse
       .then((data) => (document.getElementById("csrf").value = data.csrfToken))
-    // Etape 3 : ne récupérer que ce qui m'intéresse dans les personnes
-    // et aussi changer les noms des propriétés
   );
 }
 
@@ -66,15 +64,11 @@ if (document.getElementById("loginForm")) {
       // Empêcher le comportement par défaut de soumission du formulaire
       event.preventDefault();
 
+      // Récupération des champs du formulaire
+
       const username = document.getElementById("usernameLogin").value;
       const password = document.getElementById("passwordLogin").value;
       const csrf = document.getElementById("csrf").value;
-
-      console.log({
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-CSRF-Token": csrf,
-      });
 
       fetch("http://localhost:3000/login", {
         method: "POST",
@@ -91,9 +85,17 @@ if (document.getElementById("loginForm")) {
         .then((res) => res.json())
         // Etape 2 : Je ne récupère que ce qui m'intéresse
         .then((data) => {
-          setCookie("token", data.token, 1); // "1" représente la durée en heure avant expiration
+          //Si erreur on affiche sinon on passe a la suite
+          if (!data.token) {
+            document.getElementById("passwordError").innerHTML =
+              "Email ou mot de passe incorrect";
+          } else {
+            document.getElementById("passwordError").innerHTML = "";
 
-          window.location.href = "/dashboard";
+            setCookie("token", data.token, 1); // "1" représente la durée en heure avant expiration
+            //Redirection vers le dahboard
+            window.location.href = "/dashboard";
+          }
         })
         .catch((err) => {
           //Si echec
@@ -111,11 +113,22 @@ if (document.getElementById("registerForm")) {
       // Empêcher le comportement par défaut de soumission du formulaire
       event.preventDefault();
 
+      // Récupération des champs du formulaire
       const username = document.getElementById("usernameRegister").value;
       const password = document.getElementById("passwordRegister").value;
       const repeat = document.getElementById("repeatRegister").value;
       const fullname = document.getElementById("fullnameRegister").value;
       const csrf = document.getElementById("csrf").value;
+
+      //Verification robustesse mot de passe
+      var pattern =
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?\/>\\.<,])(?=.*[^\s]).{8,}$/;
+      //Si pas robuste on affiche un message sinon on passe a la suite
+      if (!pattern.test(password)) {
+        document.getElementById("passwordError").innerHTML =
+          "Password must contain at least 8 characters, including at least one digit, one lowercase letter, one uppercase letter, one special character, and no spaces.";
+        return false;
+      }
 
       if (repeat !== password) {
         alert("les mots de passes doivent correspondre");
@@ -139,6 +152,7 @@ if (document.getElementById("registerForm")) {
           console.log(data.token);
           setCookie("token", data.token, 1); // "1" représente la durée en heure avant expiration
 
+          //Redirection vers dashboard
           window.location.href = "/dashboard";
         })
         .catch((err) => {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Images</title>
+  </head>
+  <body>
+    <input type="file" id="fileInput" multiple accept="image/*" />
+    <button onclick="saveImages()">Save Images</button>
+    <img
+      src="data:image/png;base64,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"
+    />
+    <div id="imageContainer"></div>
+
+    <script>
+      function saveImages() {
+        const fileInput = document.getElementById("fileInput");
+        const imageContainer = document.getElementById("imageContainer");
+
+        // Vérifie si des fichiers ont été sélectionnés
+        if (fileInput.files.length > 0) {
+          // Parcourir chaque fichier sélectionné
+          for (let i = 0; i < fileInput.files.length; i++) {
+            const file = fileInput.files[i];
+
+            // Vérifie si le fichier est une image
+            if (file.type.match("image.*")) {
+              // Créer un objet FileReader pour lire le contenu du fichier
+              const reader = new FileReader();
+
+              // Lorsque la lecture du fichier est terminée
+              reader.onload = function (event) {
+                // Créer un élément image pour afficher l'image
+                const image = new Image();
+                image.src = event.target.result;
+
+                // Ajouter l'image à la page
+                imageContainer.appendChild(image);
+              };
+
+              // Lire le contenu du fichier en tant que Data URL (base64)
+              reader.readAsDataURL(file);
+            }
+          }
+        } else {
+          console.error("No files selected.");
+        }
+      }
+    </script>
+  </body>
+</html>
