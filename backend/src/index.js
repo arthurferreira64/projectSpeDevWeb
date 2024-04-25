@@ -44,7 +44,7 @@ db.serialize(() => {
     " CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT, password TEXT, fullname TEXT)"
   );
   db.run(
-    " CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, libelle varchar(500), description TEXT, prix TEXT, categorie TEXT)"
+    " CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name varchar(500), description TEXT, price number, categorie TEXT)"
   );
 
   db.run(

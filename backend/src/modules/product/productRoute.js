@@ -11,7 +11,7 @@ import {
 const productRoute = express.Router();
 
 //Creer un produit
-productRoute.post("/product", createProduct);
+productRoute.post("/create-product", createProduct);
 
 //Récupérer tous les produits
 productRoute.get("/product", getAllProducts);

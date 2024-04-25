@@ -1,12 +1,12 @@
 import { db } from "../../index.js";
 
 export async function insertProduct(productData) {
-  const { libelle, description, prix, categorie } = productData;
+  const { name, description, price, categorie } = productData;
 
   return new Promise((resolve, reject) => {
     db.run(
-      "INSERT INTO products (libelle, description, prix, categorie) VALUES (?, ?, ?, ?)",
-      [libelle, description, prix, categorie],
+      "INSERT INTO products (name, description, price, categorie) VALUES (?, ?, ?, ?)",
+      [name, description, price, categorie],
       function (err) {
         if (err) {
           reject(new Error("Error insert product" + err));
@@ -20,12 +20,12 @@ export async function insertProduct(productData) {
 }
 
 export async function updateProductService(productId, updatedProductData) {
-  const { libelle, description, prix, categorie } = updatedProductData;
+  const { name, description, price, categorie } = updatedProductData;
 
   return new Promise((resolve, reject) => {
     db.run(
-      "UPDATE products SET libelle = ?, description = ?, prix = ?, categorie = ? WHERE id = ?",
-      [libelle, description, prix, categorie, productId],
+      "UPDATE products SET name = ?, description = ?, price = ?, categorie = ? WHERE id = ?",
+      [name, description, price, categorie, productId],
       function (err) {
         if (err) {
           reject(new Error("Error updating product" + err));
