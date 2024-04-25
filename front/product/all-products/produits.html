@@ -22,6 +22,8 @@
       <label for="search">Recherche</label>
       <input type="text" id="search" name="search" />
     </div>
+  <input placeholder="" type="hidden" id="csrf" />
+
   <div id="users"></div>
     <script src="produits.js"></script>
     <script>
@@ -44,5 +46,10 @@
           text-align: center;
       }
   </style>
+  <script src="../../index.js"></script>
+  <script type="module" src="../../main.js"></script>
+  <script>
+      getCSRF();
+  </script>
   </body>
 </html>
