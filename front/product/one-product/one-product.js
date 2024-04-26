@@ -1,9 +1,7 @@
 function getProductById(id) {
     return (
         fetch(`http://localhost:3000/product/${id}`)
-            // Etape 1 : Je vais chercher les données
             .then((res) => res.json())
-            // Etape 2 : Je ne récupère que ce qui m'intéresse
             .then((data) => data.product)
     );
 }
@@ -15,7 +13,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (productId) {
         const productDetailsElement = document.getElementById('productDetails');
         const product = await getProductById(productId);
+
         if (product) {
+            const images = product.images.map(imageUrl =>
+                `<img width="250" style="margin: 5px" src="http://localhost:3000/image/${imageUrl.image}" alt="${product.name}"></img>`
+            );
+
+            // Créez des paires d'images dans des divs conteneurs
+            const imgPairs = [];
+            for (let i = 0; i < images.length; i += 2) {
+                const pair = images.slice(i, i + 2).join('');
+                imgPairs.push(`<div class="flex">${pair}</div>`);
+            }
+
+            const imgHTML = imgPairs.join('');
             document.querySelector("#details").innerHTML = `
                 <div class="container mx-auto mt-10 shadow-lg" style="padding-bottom: 1rem; width: 50%">
                      <h1 class="text-2xl font-bold mb-4" style="text-align: center">
@@ -41,16 +52,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                      <label for="name" class="block font-bold mb-2"
                      >Prix : ${product.price} €</label>
                     </div>
-                  
+                     <label for="name" class="block font-bold mb-2"
+                     >Images :</label>
+                    ${imgHTML}
                 </div>
 `;
-            const imageGallery = document.getElementById('image');
-            product.images.forEach(imageUrl => {
-                const imageElement = document.createElement('img');
-                imageElement.src = imageUrl;
-                imageElement.alt = product.name;
-                imageGallery.appendChild(imageElement);
-            });
         } else {
             productDetailsElement.innerHTML = '<p>Le produit n`existe pas!</p>';
         }
