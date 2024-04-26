@@ -18,9 +18,14 @@
   <script type="module" src="../../main.js"></script>
   <body class="bg-gray-100">
     <h1 class="text-center text-2xl">Listes de tous les produits</h1>
-    <div class="text-right mb-5">
-      <label for="search">Recherche</label>
-      <input type="text" id="search" name="search" />
+    <div class="mb-5">
+      <label for="search" class="text-[12px] text-gray-700">Recherche</label>
+      <input
+        type="text"
+        id="search"
+        name="search"
+        class="text-primary bg-transparent bg-blue border border-gray-500 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 focus:bg-secondary focus:outline-none block p-2"
+      />
     </div>
     <input placeholder="" type="hidden" id="csrf" />
 

@@ -52,21 +52,21 @@ function appendToDomProducts(promise) {
       const productsHTML = products
         .map(
           ({ id, titre, description, prix, categorie }) => `
-                        <tr data-product-id="${id}">
-                            <td class="text-center">${titre}</td>
-                            <td class="text-center max-w-[300px]">${description}</td>
-                            <td class="text-center">${prix}</td>
-                            <td class="text-center">${categorie}</td>
+                        <tr data-product-id="${id}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="px-6 py-4">${titre}</td>
+                            <td class="px-6 py-4 max-w-xl">${description}</td>
+                            <td class="px-6 py-4">${prix}</td>
+                            <td class="px-6 py-4">${categorie}</td>
                             <td>
-                            <button class="open-product" data-product-id="${id}"><i class="fas fa-eye"></i></button>
+                            <button class="open-product px-4" data-product-id="${id}"><i class="fas fa-eye"></i></button>
                             ${
                               isLog
-                                ? '<button class="btnEdit" data-product-id="' +
+                                ? '<button class="btnEdit px-4" data-product-id="' +
                                   id +
                                   '"><i class="fa-solid fa-pen"></i></button>'
                                 : ""
                             }
-                            <button class="addToCart ml-2" data-product-id="${id}" data-titre="${titre}" data-description="${description}" data-prix="${prix}" data-categorie="${categorie}"><i class="fas fa-cart-plus"></i></button>
+                            <button class="addToCart px-4" data-product-id="${id}" data-titre="${titre}" data-description="${description}" data-prix="${prix}" data-categorie="${categorie}"><i class="fas fa-cart-plus"></i></button>
                             ${
                               isLog
                                 ? '<button class="deleteProduct ml-2" data-product-id="' +
@@ -80,16 +80,21 @@ function appendToDomProducts(promise) {
         )
         .join("");
 
-      document.querySelector("#users").innerHTML = `<div class="card">
-                    <table class="table-bordered w-full" >
-                        <tr>
-                            <th>Nom</th>
-                            <th>Description</th>
-                            <th>Prix</th>
-                            <th>Catégorie</th>
-                            <th>Action</th>
+      document.querySelector(
+        "#users"
+      ).innerHTML = `<div class="relative overflow-x-auto">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                            <th scope="col" class="px-6 py-3">Nom</th>
+                            <th scope="col" class="px-6 py-3">Description</th>
+                            <th scope="col" class="px-6 py-3">Prix</th>
+                            <th scope="col" class="px-6 py-3">Catégorie</th>
+                            <th scope="col" class="px-6 py-3">Action</th>
                         </tr>
+                        <tbody>
                         ${productsHTML}
+                        </tbody>
                         </table>
                     </div>
 `;

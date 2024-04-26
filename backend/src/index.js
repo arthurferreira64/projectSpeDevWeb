@@ -70,6 +70,10 @@ app.get("/image/:id", (req, res) => {
   res.sendFile(imagePath);
 });
 
+// app.post("/csp-report", (req, res) => {
+//Route qui enregistre les erreurs csp en bdd
+// });
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

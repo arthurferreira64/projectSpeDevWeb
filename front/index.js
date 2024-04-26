@@ -121,7 +121,8 @@ if (document.getElementById("registerForm")) {
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?\/>\\.<,])(?=.*[^\s]).{8,}$/;
       //Si pas robuste on affiche un message sinon on passe a la suite
       if (!pattern.test(password)) {
-        document.getElementById("passwordError").innerHTML =
+        console.log("ici");
+        document.getElementById("passwordError").textContent =
           "Password must contain at least 8 characters, including at least one digit, one lowercase letter, one uppercase letter, one special character, and no spaces.";
         return false;
       }
