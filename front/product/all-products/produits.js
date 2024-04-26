@@ -55,7 +55,7 @@ function appendToDomProducts(promise) {
           ({ id, titre, description, prix, categorie }) => `
                         <tr data-product-id="${id}">
                             <td style="text-align: center">${titre}</td>
-                            <td style="text-align: center">${description}</td>
+                            <td style="text-align: center; max-width: 300px">${description}</td>
                             <td style="text-align: center">${prix}</td>
                             <td style="text-align: center">${categorie}</td>
                             <td>

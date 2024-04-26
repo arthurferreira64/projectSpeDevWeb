@@ -52,9 +52,6 @@ function getCSRF() {
   );
 }
 
-//Produits ---------------------------------
-//Produits ---------------------------------
-
 //Login -------
 if (document.getElementById("loginForm")) {
   document
@@ -120,7 +117,7 @@ if (document.getElementById("registerForm")) {
       const csrf = document.getElementById("csrf").value;
 
       //Verification robustesse mot de passe
-      var pattern =
+      const pattern =
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?\/>\\.<,])(?=.*[^\s]).{8,}$/;
       //Si pas robuste on affiche un message sinon on passe a la suite
       if (!pattern.test(password)) {
@@ -148,7 +145,6 @@ if (document.getElementById("registerForm")) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.token);
           setCookie("token", data.token, 1); // "1" représente la durée en heure avant expiration
 
           //Redirection vers dashboard
@@ -172,11 +168,11 @@ function setCookie(cookieName, cookieValue, expiryInHour) {
 
 function getCookie(name) {
   // Sépare les cookies individuels en utilisant ';'
-  var cookies = document.cookie.split(";");
+    const cookies = document.cookie.split(";");
 
   // Parcourt chaque cookie
-  for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
+  for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
     // Supprime les espaces en début et en fin de cookie
     cookie = cookie.trim();
     // Vérifie si le nom du cookie correspond à celui recherché

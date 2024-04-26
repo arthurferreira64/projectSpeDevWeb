@@ -151,11 +151,11 @@ function userIsLogged() {
 }
 function getCookie(name) {
   // Sépare les cookies individuels en utilisant ';'
-  var cookies = document.cookie.split(";");
+    const cookies = document.cookie.split(";");
 
   // Parcourt chaque cookie
-  for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
+  for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
     // Supprime les espaces en début et en fin de cookie
     cookie = cookie.trim();
     // Vérifie si le nom du cookie correspond à celui recherché
