@@ -11,7 +11,7 @@ document.querySelector("#nav").innerHTML = `
     <a href="/"
       class="self-center text-2xl font-semibold whitespace-nowrap"
     >
-      Intégration externe
+      Projet Dev
     </Link>
   </div>
   <button

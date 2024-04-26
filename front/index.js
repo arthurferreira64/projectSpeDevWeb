@@ -1,12 +1,11 @@
 //Fonction qui regarde si le user est connecté ou pas
-console.log(window.location.pathname);
 function userIsLogged() {
   return (
     //On recupere un csrf
     fetch("http://localhost:3000/csrf-token")
       .then((res) => res.json())
       .then((data) => {
-        //On verifie si le user est connecté
+          //On verifie si le user est connecté
         fetch("http://localhost:3000/verify", {
           method: "POST",
           headers: {
