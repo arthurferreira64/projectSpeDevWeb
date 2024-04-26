@@ -93,13 +93,10 @@ describe("PATCH /product/:id", () => {
   beforeAll(async () => {
     // Créer un produit fictif à mettre à jour
     const productData = {
-      product: {
-        name: "Product to Update",
-        description: "This is a product to update",
-        price: 29.99,
-        category: "Test Category",
-      },
-      images: ["update-image-1.jpg", "update-image-2.jpg"],
+      name: "Product to Update",
+      description: "This is a product to update",
+      price: 29.99,
+      categorie: "Test Category",
     };
 
     // Récupérer un jeton CSRF
@@ -119,12 +116,10 @@ describe("PATCH /product/:id", () => {
 
   it('responds with JSON containing a status "ok"', async () => {
     const updatedProductData = {
-      product: {
-        name: "Updated Product",
-        description: "This is the updated product description",
-        price: 39.99,
-        category: "Updated Category",
-      },
+      name: "Updated Product",
+      description: "This is the updated product description",
+      price: 39.99,
+      categorie: "Updated Category",
     };
 
     const response = await request(app)

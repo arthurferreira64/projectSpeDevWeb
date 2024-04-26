@@ -32,11 +32,8 @@ export async function createProduct(req, res) {
     };
     const productId = await insertProduct(product);
 
-    console.log(productId);
-
     //On créé les images
     if (images) {
-      console.log("icici");
       await Promise.all(
         images.map(async (image) => {
           await insertImage(image, productId);
@@ -57,16 +54,27 @@ export async function createProduct(req, res) {
 
 export async function updateProduct(req, res) {
   const id = req.params.id;
-  const { product } = req.body;
-
-  const token = req.cookies.token;
+  const { name, description, price, categorie } = req.body;
 
   try {
-    //On verifie le token
-    // const decoded = jwt.verify(token, secretKey);
-    // if (decoded) {
-    //On met à jour le produit
+    const images = req.files ? req.files.map((el) => el.filename) : null;
+
+    const product = {
+      name,
+      description,
+      price,
+      categorie,
+    };
+
     await updateProductService(id, product);
+
+    if (images) {
+      await Promise.all(
+        images.map(async (image) => {
+          await insertImage(image, id);
+        })
+      );
+    }
 
     res.status(200).json({ status: "ok" });
     // } else {
@@ -81,8 +89,6 @@ export async function updateProduct(req, res) {
 
 export async function deleteProduct(req, res) {
   const id = req.params.id;
-
-  const token = req.cookies.token;
 
   try {
     //On verifie le token

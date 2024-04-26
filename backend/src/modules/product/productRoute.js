@@ -36,7 +36,7 @@ productRoute.get("/product/:id", getProduct);
 productRoute.get("/product-stats", getProductCountByCategory);
 
 //Modifier un produit
-productRoute.patch("/product/:id", updateProduct);
+productRoute.patch("/product/:id", upload.array("photos", 12), updateProduct);
 
 //Supprimer un produit
 productRoute.delete("/product/:id", deleteProduct);
