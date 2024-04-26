@@ -5,7 +5,7 @@ function userIsLogged() {
     fetch("http://localhost:3000/csrf-token")
       .then((res) => res.json())
       .then((data) => {
-          //On verifie si le user est connecté
+        //On verifie si le user est connecté
         fetch("http://localhost:3000/verify", {
           method: "POST",
           headers: {
@@ -168,11 +168,11 @@ function setCookie(cookieName, cookieValue, expiryInHour) {
 
 function getCookie(name) {
   // Sépare les cookies individuels en utilisant ';'
-    const cookies = document.cookie.split(";");
+  const cookies = document.cookie.split(";");
 
   // Parcourt chaque cookie
   for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i];
+    let cookie = cookies[i];
     // Supprime les espaces en début et en fin de cookie
     cookie = cookie.trim();
     // Vérifie si le nom du cookie correspond à celui recherché
@@ -184,3 +184,5 @@ function getCookie(name) {
   // Si aucun cookie correspondant n'est trouvé, retourne null
   return null;
 }
+
+getCSRF();

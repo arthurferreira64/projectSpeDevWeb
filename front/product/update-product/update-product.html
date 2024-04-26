@@ -11,9 +11,7 @@
   />
   <body class="bg-gray-100">
     <div class="container mx-auto mt-10">
-      <h1 class="text-2xl font-bold mb-4" style="text-align: center">
-        Modifier un produit
-      </h1>
+      <h1 class="text-2xl font-bold mb-4 test">Modifier un produit</h1>
       <form id="addProductForm" class="max-w-lg mx-auto my-10">
         <input placeholder="" type="hidden" id="csrf" />
 
@@ -81,7 +79,7 @@
 
         <div id="images" class="flex"></div>
 
-        <div class="mb-4" style="display: flex; justify-content: end">
+        <div class="mb-4">
           <button
             type="submit"
             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
@@ -94,8 +92,5 @@
     <script src="../../index.js"></script>
     <script src="update-product.js"></script>
     <script type="module" src="../../main.js"></script>
-    <script>
-      getCSRF();
-    </script>
   </body>
 </html>

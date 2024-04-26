@@ -71,7 +71,7 @@ document.querySelector("#nav").innerHTML = `
               class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0  md:text-gray-900"
               aria-current="page"
             >
-              <i class="fa fa-shopping-cart" style="margin-right: 5px"></i>Panier
+              <i class="fa fa-shopping-cart mr-2"></i>Panier
               </a>
           </li>
           

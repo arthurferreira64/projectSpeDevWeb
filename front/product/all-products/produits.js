@@ -53,25 +53,25 @@ function appendToDomProducts(promise) {
         .map(
           ({ id, titre, description, prix, categorie }) => `
                         <tr data-product-id="${id}">
-                            <td style="text-align: center">${titre}</td>
-                            <td style="text-align: center; max-width: 300px">${description}</td>
-                            <td style="text-align: center">${prix}</td>
-                            <td style="text-align: center">${categorie}</td>
+                            <td class="text-center">${titre}</td>
+                            <td class="text-center max-w-[300px]">${description}</td>
+                            <td class="text-center">${prix}</td>
+                            <td class="text-center">${categorie}</td>
                             <td>
-                            <button onclick="openProduct(${id})"><i class="fas fa-eye"></i></button>
+                            <button class="open-product" data-product-id="${id}"><i class="fas fa-eye"></i></button>
                             ${
                               isLog
-                                ? '<button onclick="editProduct(' +
+                                ? '<button class="btnEdit" data-product-id="' +
                                   id +
-                                  ')" class="btnEdit"><i class="fa-solid fa-pen"></i></button>'
+                                  '"><i class="fa-solid fa-pen"></i></button>'
                                 : ""
                             }
-                            <button style="margin-left: 5px" onclick="addToCart(${id}, '${titre}', '${description}', ${prix}, '${categorie}')"><i class="fas fa-cart-plus"></i></button>
+                            <button class="addToCart ml-2" data-product-id="${id}" data-titre="${titre}" data-description="${description}" data-prix="${prix}" data-categorie="${categorie}"><i class="fas fa-cart-plus"></i></button>
                             ${
                               isLog
-                                ? '<button style="margin-left: 5px" onclick="deleteProduct(' +
+                                ? '<button class="deleteProduct ml-2" data-product-id="' +
                                   id +
-                                  ')" id="btnDelete"><i class="fas fa-trash-alt" style="color: red;"></i></button>'
+                                  '"><i class="fas fa-trash-alt text-red-500"></i></button>'
                                 : ""
                             }
                         </td>
@@ -81,7 +81,7 @@ function appendToDomProducts(promise) {
         .join("");
 
       document.querySelector("#users").innerHTML = `<div class="card">
-                    <table class="table-bordered" style="width: 100%">
+                    <table class="table-bordered w-full" >
                         <tr>
                             <th>Nom</th>
                             <th>Description</th>
@@ -93,10 +93,48 @@ function appendToDomProducts(promise) {
                         </table>
                     </div>
 `;
+
+      // Ajoutez des écouteurs d'événements aux boutons
+      document.querySelectorAll(".open-product").forEach((button) => {
+        button.addEventListener("click", function () {
+          openProduct(this.getAttribute("data-product-id"));
+        });
+      });
+
+      document.querySelectorAll(".btnEdit").forEach((button) => {
+        button.addEventListener("click", function () {
+          editProduct(this.getAttribute("data-product-id"));
+        });
+      });
+
+      document.querySelectorAll(".addToCart").forEach((button) => {
+        button.addEventListener("click", function () {
+          addToCart(
+            this.getAttribute("data-product-id"),
+            this.getAttribute("data-titre"),
+            this.getAttribute("data-description"),
+            this.getAttribute("data-prix"),
+            this.getAttribute("data-categorie")
+          );
+        });
+      });
+
+      document.querySelectorAll(".deleteProduct").forEach((button) => {
+        button.addEventListener("click", function () {
+          deleteProduct(this.getAttribute("data-product-id"));
+        });
+      });
     });
   });
-  // });
 }
+
+// Supprimez les appels directes à userIsLogged et appendToDomProducts ici
+
+// Mettez à jour le code pour déclencher l'appel initial à userIsLogged et appendToDomProducts une fois que le statut de connexion est obtenu
+userIsLogged().then((isLoggedIn) => {
+  isLog = isLoggedIn;
+  appendToDomProducts(getProducts());
+});
 
 function filterProducts(promise) {
   return promise.then((personnes) =>
@@ -157,3 +195,11 @@ function addToCart(id, titre, description, prix, categorie) {
 userIsLogged().then((isLoggedIn) => {
   isLog = isLoggedIn; // Cela devrait afficher true ou false
 });
+
+appendToDomProducts(getProducts());
+
+document
+  .querySelector("#search")
+  .addEventListener("keyup", () =>
+    appendToDomProducts(filterProducts(getProducts()))
+  );

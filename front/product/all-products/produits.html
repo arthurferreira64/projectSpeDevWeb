@@ -17,10 +17,8 @@
   />
   <script type="module" src="../../main.js"></script>
   <body class="bg-gray-100">
-    <h1 style="text-align: center; font-size: xx-large">
-      Listes de tous les produits
-    </h1>
-    <div style="text-align: right; margin-bottom: 10px">
+    <h1 class="text-center text-2xl">Listes de tous les produits</h1>
+    <div class="text-right mb-5">
       <label for="search">Recherche</label>
       <input type="text" id="search" name="search" />
     </div>
@@ -28,31 +26,8 @@
 
     <div id="users"></div>
     <script src="produits.js"></script>
-    <script>
-      appendToDomProducts(getProducts());
 
-      document
-        .querySelector("#search")
-        .addEventListener("keyup", () =>
-          appendToDomProducts(filterProducts(getProducts()))
-        );
-    </script>
-    <style>
-      .table-bordered {
-        border-collapse: collapse;
-        border: 2px solid black;
-      }
-      .table-bordered th,
-      .table-bordered td {
-        border: 2px solid black;
-        padding: 8px;
-        text-align: center;
-      }
-    </style>
     <script src="../../index.js"></script>
     <script type="module" src="../../main.js"></script>
-    <script>
-      getCSRF();
-    </script>
   </body>
 </html>

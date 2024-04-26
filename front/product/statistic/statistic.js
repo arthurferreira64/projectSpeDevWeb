@@ -1,23 +1,24 @@
 function getStatistic() {
-    return (
-        fetch("http://localhost:3000/product-stats")
-            .then((res) => res.json())
-            // Etape 2 : Je ne récupère que ce qui m'intéresse
-            .then((data) => data.productCounts)
+  return (
+    fetch("http://localhost:3000/product-stats")
+      .then((res) => res.json())
+      // Etape 2 : Je ne récupère que ce qui m'intéresse
+      .then((data) => data.productCounts)
 
-            .then((productCounts) => {
-
-                const productCountsHTML = productCounts.map(
-                    ({name, number}) => `
+      .then((productCounts) => {
+        const productCountsHTML = productCounts
+          .map(
+            ({ name, number }) => `
                         <tr>
-                            <td style="text-align: center">${name}</td>
-                            <td style="text-align: center">${number}</td>
+                            <td class="text-center">${name}</td>
+                            <td class="text-center">${number}</td>
                         </tr>
                     `
-                ).join("");
+          )
+          .join("");
 
-                document.querySelector("#stats").innerHTML = `<div class="card">
-                    <table class="table-bordered" style="width: 100%">
+        document.querySelector("#stats").innerHTML = `<div class="card">
+                    <table class="table-bordered" class="w-full">
                         <tr>
                             <th>Nom</th>
                             <th>Nombre de produits</th>
@@ -26,7 +27,6 @@ function getStatistic() {
                         </table>
                     </div>
 `;
-                }
-            )
-    );
+      })
+  );
 }
