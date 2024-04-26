@@ -151,11 +151,11 @@ function userIsLogged() {
 }
 function getCookie(name) {
   // Sépare les cookies individuels en utilisant ';'
-    const cookies = document.cookie.split(";");
+  const cookies = document.cookie.split(";");
 
   // Parcourt chaque cookie
   for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i];
+    let cookie = cookies[i];
     // Supprime les espaces en début et en fin de cookie
     cookie = cookie.trim();
     // Vérifie si le nom du cookie correspond à celui recherché
@@ -169,18 +169,3 @@ function getCookie(name) {
 }
 
 userIsLogged();
-
-let metaTag = document.createElement("meta");
-
-// Définir les attributs de la balise meta
-
-const nonce = (Math.random() + 1).toString(36).substring(2);
-
-metaTag.setAttribute("http-equiv", "Content-Security-Policy");
-// metaTag.setAttribute(
-//   "content",
-//   `form-action 'self'; img-src 'none'; style-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'sha256-SOHhLX6uYgxUm6GqAfZoFtI6B+jag8IEw+xtCNel45E='; script-src https://cdnjs.cloudflare.com 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline'; object-src 'none'; base-uri 'self';`
-// );
-
-// Ajouter la balise meta au header du document
-document.head.appendChild(metaTag);

@@ -1,4 +1,6 @@
-function userIsLogged() {
+let isLog = false;
+
+function userIsLogged(callback) {
   // On récupère un csrf
   return fetch("http://localhost:3000/csrf-token")
     .then((res) => res.json())
@@ -17,17 +19,15 @@ function userIsLogged() {
     })
     .then((res) => {
       // Si pas connecté, renvoie false, sinon true
-      console.log("la");
       if (res.status === 400) {
-        return false;
+        return false; // Appel de la fonction de rappel avec false
       } else {
-        console.log("ici");
-        return true;
+        return true; // Appel de la fonction de rappel avec true
       }
     })
     .catch((error) => {
       console.error("Error:", error);
-      return false; // En cas d'erreur, renvoie false
+      return false; // En cas d'erreur, appeler la fonction de rappel avec false
     });
 }
 
@@ -48,8 +48,7 @@ function getProducts() {
 
 function appendToDomProducts(promise) {
   return promise.then((products) => {
-    userIsLogged().then((res) => {
-      console.log(res);
+    userIsLogged().then((isLoggedIn) => {
       const productsHTML = products
         .map(
           ({ id, titre, description, prix, categorie }) => `
@@ -61,14 +60,18 @@ function appendToDomProducts(promise) {
                             <td>
                             <button onclick="openProduct(${id})"><i class="fas fa-eye"></i></button>
                             ${
-                              res
-                                ? '<button onclick="editProduct(${id})" class="btnEdit"><i class="fa-solid fa-pen"></i></button>'
+                              isLog
+                                ? '<button onclick="editProduct(' +
+                                  id +
+                                  ')" class="btnEdit"><i class="fa-solid fa-pen"></i></button>'
                                 : ""
                             }
                             <button style="margin-left: 5px" onclick="addToCart(${id}, '${titre}', '${description}', ${prix}, '${categorie}')"><i class="fas fa-cart-plus"></i></button>
                             ${
-                              res
-                                ? '<button style="margin-left: 5px" onclick="deleteProduct(${id})" id="btnDelete"><i class="fas fa-trash-alt" style="color: red;"></i></button>'
+                              isLog
+                                ? '<button style="margin-left: 5px" onclick="deleteProduct(' +
+                                  id +
+                                  ')" id="btnDelete"><i class="fas fa-trash-alt" style="color: red;"></i></button>'
                                 : ""
                             }
                         </td>
@@ -92,6 +95,7 @@ function appendToDomProducts(promise) {
 `;
     });
   });
+  // });
 }
 
 function filterProducts(promise) {
@@ -111,25 +115,23 @@ function editProduct(id) {
 }
 
 function deleteProduct(id) {
-  userIsLogged().then((res) => {
-    if (res) {
-      const csrf = document.getElementById("csrf").value;
-      return fetch(`http://localhost:3000/product/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          CSRF: csrf,
-        },
+  if (isLog) {
+    const csrf = document.getElementById("csrf").value;
+    return fetch(`http://localhost:3000/product/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        CSRF: csrf,
+      },
+    })
+      .then((response) => response.json())
+      .then(() => {
+        appendToDomProducts(getProducts());
       })
-        .then((response) => response.json())
-        .then(() => {
-          appendToDomProducts(getProducts());
-        })
-        .catch((error) =>
-          console.error("Erreur lors de la suppression du produit :", error)
-        );
-    }
-  });
+      .catch((error) =>
+        console.error("Erreur lors de la suppression du produit :", error)
+      );
+  }
 }
 
 function addToCart(id, titre, description, prix, categorie) {
@@ -152,5 +154,6 @@ function addToCart(id, titre, description, prix, categorie) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
 }
-
-userIsLogged((isLoggedIn) => console.log(isLoggedIn));
+userIsLogged().then((isLoggedIn) => {
+  isLog = isLoggedIn; // Cela devrait afficher true ou false
+});
