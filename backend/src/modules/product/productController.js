@@ -41,7 +41,7 @@ export async function createProduct(req, res) {
       );
     }
 
-    res.status(200).json({ status: "ok" });
+    res.status(200).json({ status: "ok", productId });
     // } else {
     //   res
     //     .status(403)

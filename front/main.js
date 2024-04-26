@@ -127,7 +127,10 @@ function userIsLogged() {
             document.querySelector("#add-product").classList.add("hidden");
             document.querySelector("#login").classList.remove("hidden");
 
-            if (window.location.pathname === "/dashboard") {
+            if (
+              window.location.pathname === "/dashboard" ||
+              window.location.pathname.includes("update-product")
+            ) {
               window.location.href = "/login";
             }
             return;

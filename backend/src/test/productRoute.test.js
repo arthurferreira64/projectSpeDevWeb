@@ -41,7 +41,19 @@ describe("POST /create-product", () => {
       .set("csrf", csrfToken); // Ajoute le jeton CSRF à la requête
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({ status: "ok" });
+
+    console.debug(response);
+
+    expect(response.body).toEqual({
+      status: "ok",
+      productId: response.body.productId,
+    });
+
+    //Supprime le produit a la fin du test
+    await request(app)
+      .delete(`/product/${response.body.productId}`)
+      .set("Accept", "application/json")
+      .set("csrf", csrfToken);
   });
 });
 
@@ -72,9 +84,11 @@ describe("DELETE /product/:id", () => {
       .set("Accept", "application/json")
       .set("csrf", csrfToken);
     productId = createProductResponse.body.productId;
+    console.debug("Product created:", createProductResponse.body.productId); // Message de débogage
   });
 
   it('responds with JSON containing a status "ok"', async () => {
+    console.debug("Product to delete:", productId); // Message de débogage
     const response = await request(app)
       .delete(`/product/${productId}`)
       .set("Accept", "application/json")
@@ -130,5 +144,11 @@ describe("PATCH /product/:id", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ status: "ok" });
+
+    //Supprime le produit a la fin du test
+    await request(app)
+      .delete(`/product/${productId}`)
+      .set("Accept", "application/json")
+      .set("csrf", csrfToken);
   });
 });

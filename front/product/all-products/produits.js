@@ -1,25 +1,58 @@
+function userIsLogged() {
+  // On récupère un csrf
+  return fetch("http://localhost:3000/csrf-token")
+    .then((res) => res.json())
+    .then((data) => {
+      // On vérifie si le user est connecté
+      return fetch("http://localhost:3000/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          CSRF: data.csrfToken,
+        },
+        body: JSON.stringify({
+          jeton: getCookie("token") ?? "fdsfds",
+        }),
+      });
+    })
+    .then((res) => {
+      // Si pas connecté, renvoie false, sinon true
+      console.log("la");
+      if (res.status === 400) {
+        return false;
+      } else {
+        console.log("ici");
+        return true;
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return false; // En cas d'erreur, renvoie false
+    });
+}
+
 function getProducts() {
-  return (
-    fetch("http://localhost:3000/product")
-      .then((res) => res.json())
-      .then((data) => data.products)
-      .then((products) =>
-        products.map((el) => ({
-          id: el.id,
-          titre: el.name,
-          description: el.description,
-          prix: el.price,
-          categorie: el.categorie,
-        }))
-      )
-  );
+  return fetch("http://localhost:3000/product")
+    .then((res) => res.json())
+    .then((data) => data.products)
+    .then((products) =>
+      products.map((el) => ({
+        id: el.id,
+        titre: el.name,
+        description: el.description,
+        prix: el.price,
+        categorie: el.categorie,
+      }))
+    );
 }
 
 function appendToDomProducts(promise) {
   return promise.then((products) => {
-    const productsHTML = products
-      .map(
-        ({ id, titre, description, prix, categorie }) => `
+    userIsLogged().then((res) => {
+      console.log(res);
+      const productsHTML = products
+        .map(
+          ({ id, titre, description, prix, categorie }) => `
                         <tr data-product-id="${id}">
                             <td style="text-align: center">${titre}</td>
                             <td style="text-align: center">${description}</td>
@@ -27,16 +60,24 @@ function appendToDomProducts(promise) {
                             <td style="text-align: center">${categorie}</td>
                             <td>
                             <button onclick="openProduct(${id})"><i class="fas fa-eye"></i></button>
-                            <button onclick="editProduct(${id})"><i class="fa-solid fa-pen"></i></button>
+                            ${
+                              res
+                                ? '<button onclick="editProduct(${id})" class="btnEdit"><i class="fa-solid fa-pen"></i></button>'
+                                : ""
+                            }
                             <button style="margin-left: 5px" onclick="addToCart(${id}, '${titre}', '${description}', ${prix}, '${categorie}')"><i class="fas fa-cart-plus"></i></button>
-                            <button style="margin-left: 5px" onclick="deleteProduct(${id})"><i class="fas fa-trash-alt" style="color: red;"></i></button>
+                            ${
+                              res
+                                ? '<button style="margin-left: 5px" onclick="deleteProduct(${id})" id="btnDelete"><i class="fas fa-trash-alt" style="color: red;"></i></button>'
+                                : ""
+                            }
                         </td>
                         </tr>
                     `
-      )
-      .join("");
+        )
+        .join("");
 
-    document.querySelector("#users").innerHTML = `<div class="card">
+      document.querySelector("#users").innerHTML = `<div class="card">
                     <table class="table-bordered" style="width: 100%">
                         <tr>
                             <th>Nom</th>
@@ -49,6 +90,7 @@ function appendToDomProducts(promise) {
                         </table>
                     </div>
 `;
+    });
   });
 }
 
@@ -69,21 +111,25 @@ function editProduct(id) {
 }
 
 function deleteProduct(id) {
-  const csrf = document.getElementById("csrf").value;
-  return fetch(`http://localhost:3000/product/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      CSRF: csrf,
-    },
-  })
-    .then((response) => response.json())
-    .then(() => {
-            appendToDomProducts(getProducts());
-    })
-    .catch((error) =>
-      console.error("Erreur lors de la suppression du produit :", error)
-    );
+  userIsLogged().then((res) => {
+    if (res) {
+      const csrf = document.getElementById("csrf").value;
+      return fetch(`http://localhost:3000/product/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          CSRF: csrf,
+        },
+      })
+        .then((response) => response.json())
+        .then(() => {
+          appendToDomProducts(getProducts());
+        })
+        .catch((error) =>
+          console.error("Erreur lors de la suppression du produit :", error)
+        );
+    }
+  });
 }
 
 function addToCart(id, titre, description, prix, categorie) {
@@ -106,3 +152,5 @@ function addToCart(id, titre, description, prix, categorie) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
 }
+
+userIsLogged((isLoggedIn) => console.log(isLoggedIn));
