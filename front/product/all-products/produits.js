@@ -1,12 +1,8 @@
 function getProducts() {
   return (
     fetch("http://localhost:3000/product")
-      // Etape 1 : Je vais chercher les données
       .then((res) => res.json())
-      // Etape 2 : Je ne récupère que ce qui m'intéresse
       .then((data) => data.products)
-      // Etape 3 : ne récupérer que ce qui m'intéresse dans les personnes
-      // et aussi changer les noms des propriétés
       .then((products) =>
         products.map((el) => ({
           id: el.id,
@@ -20,7 +16,6 @@ function getProducts() {
 }
 
 function appendToDomProducts(promise) {
-  // Etape 4 : Transformer les données en HTML
   return promise.then((products) => {
     const productsHTML = products
       .map(
@@ -49,7 +44,6 @@ function appendToDomProducts(promise) {
                             <th>Prix</th>
                             <th>Catégorie</th>
                             <th>Action</th>
-
                         </tr>
                         ${productsHTML}
                         </table>
@@ -68,7 +62,6 @@ function filterProducts(promise) {
 }
 
 function openProduct(id) {
-  console.log(id);
   window.location.href = `../one-product/one-product.html?id=${id}`;
 }
 function editProduct(id) {
@@ -85,7 +78,9 @@ function deleteProduct(id) {
     },
   })
     .then((response) => response.json())
-    .then((data) => data)
+    .then(() => {
+            appendToDomProducts(getProducts());
+    })
     .catch((error) =>
       console.error("Erreur lors de la suppression du produit :", error)
     );
@@ -101,18 +96,12 @@ function addToCart(id, titre, description, prix, categorie) {
     categorie: categorie,
   };
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  console.log(cart);
-
   const existingProductIndex = cart.findIndex((item) => item.id === product.id);
 
   if (existingProductIndex !== -1) {
     cart[existingProductIndex].qty += 1;
-    console.log(
-      `La quantité du produit avec l'ID ${product.id} a été augmentée à ${cart[existingProductIndex].qty}.`
-    );
   } else {
     cart.push(product);
-    console.log(`Le produit avec l'ID ${product.id} a été ajouté au panier.`);
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
