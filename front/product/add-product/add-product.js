@@ -38,12 +38,10 @@ document
     })
       .then((res) => res.json())
       .then((data) => {
+          console.log(data)
         // console.log(data.token);
         console.log("oco");
         // window.location.href = "../all-products/produits.html";
-        // setCookie("token", data.token, 1); // "1" représente la durée en heure avant expiration
-        // //Redirection vers dashboard
-        // window.location.href = "/dashboard";
       })
       .catch((err) => {
         //Si echec
