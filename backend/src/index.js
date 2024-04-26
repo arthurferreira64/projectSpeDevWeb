@@ -6,21 +6,15 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import csrf from "csrf";
 import productRoute from "./modules/product/productRoute.js";
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path"; // Initialise le middleware CSRF avec des options
+import { resolve } from "path";
+
 const tokens = new csrf();
 const secret = tokens.secretSync();
-
-// Utilise le middleware CSRF pour générer et stocker le jeton CSRF dans la session utilisateur
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-// Ajout du middleware CSRF ici
 
 app.use(
   cors({
@@ -29,6 +23,7 @@ app.use(
     // methods: "GET,POST,PUT,DELETE,PATCH",
   })
 );
+// Ajout du middleware CSRF ici
 
 app.use(function (req, res, next) {
   const { csrf } = req.headers;
@@ -70,7 +65,8 @@ app.get("/csrf-token", (req, res) => {
 app.get("/image/:id", (req, res) => {
   const id = req.params.id;
   // Renvoyez l'image en utilisant son ID dans le chemin
-  const imagePath = resolve(__dirname, `../public/uploads/${id}`);
+  const __dirname = process.cwd();
+  const imagePath = resolve(__dirname, `../backend/public/uploads/${id}`);
   res.sendFile(imagePath);
 });
 

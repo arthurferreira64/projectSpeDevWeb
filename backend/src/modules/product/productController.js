@@ -18,7 +18,7 @@ export async function createProduct(req, res) {
     // if (decoded) {
     //On créé le produit
 
-    const images = req.files.map((el) => el.filename);
+    const images = req.files ? req.files.map((el) => el.filename) : null;
 
     // const uploadedFile = req.files.image0;
 
@@ -32,11 +32,13 @@ export async function createProduct(req, res) {
     const productId = await insertProduct(product);
 
     //On créé les images
-    await Promise.all(
-      images.map(async (image) => {
-        await insertImage(productId, image);
-      })
-    );
+    if (images) {
+      await Promise.all(
+        images.map(async (image) => {
+          await insertImage(productId, image);
+        })
+      );
+    }
 
     res.status(200).json({ status: "ok" });
     // } else {

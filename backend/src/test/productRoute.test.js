@@ -28,13 +28,10 @@ describe("POST /create-product", () => {
 
   it('responds with JSON containing a status "ok"', async () => {
     const productData = {
-      product: {
-        name: "Test Product",
-        description: "This is a test product",
-        price: 10.99,
-        category: "Test Category",
-      },
-      images: ["test-image-1.jpg", "test-image-2.jpg"],
+      name: "Test Product",
+      description: "This is a test product",
+      price: 10.99,
+      categorie: "Test Category",
     };
 
     const response = await request(app)
@@ -56,13 +53,10 @@ describe("DELETE /product/:id", () => {
   beforeAll(async () => {
     // Créer un produit fictif à supprimer
     const productData = {
-      product: {
-        name: "Product to Delete",
-        description: "This is a product to delete",
-        price: 19.99,
-        category: "Test Category",
-      },
-      images: ["delete-image-1.jpg", "delete-image-2.jpg"],
+      name: "Product to Delete",
+      description: "This is a product to delete",
+      price: 19.99,
+      categorie: "Test Category",
     };
 
     // Récupérer un jeton CSRF
