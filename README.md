@@ -1,6 +1,16 @@
-# projectSpeDevWeb
+# Project Spe Dev Web
 
-Le projet est composé d'un frontend est d'un backend
+Le projet est composé d'un frontend est d'un backend.
+
+Ce projet a pour but de mettre en application les différentes notions présentées
+pendant cette formation :
+Les fonctionnalités liées au paradigme de la programmation fonctionnelle
+Les possibilités offertes par JavaScript dans ses dernières versions : asynchronicité,
+éléments de syntaxe
+Les tests associés au code JavaScript
+Les bonnes pratiques de sécurité
+Pour ce faire, une application "simple" sera réalisée. Elle sera l'occasion de mettre en
+application les différents éléments listés ci-dessus.
 
 ### Lancer le frontend
 
