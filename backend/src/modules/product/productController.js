@@ -4,6 +4,7 @@ import {
   getAllProductsService,
   getProductByIdService,
   getProductCountByCategoryService,
+  getProductImage,
   insertImage,
   insertProduct,
   updateProductService,
@@ -31,11 +32,14 @@ export async function createProduct(req, res) {
     };
     const productId = await insertProduct(product);
 
+    console.log(productId);
+
     //On créé les images
     if (images) {
+      console.log("icici");
       await Promise.all(
         images.map(async (image) => {
-          await insertImage(productId, image);
+          await insertImage(image, productId);
         })
       );
     }
@@ -115,6 +119,9 @@ export async function getProduct(req, res) {
 
   try {
     const product = await getProductByIdService(id);
+    const images = await getProductImage(id);
+
+    product.images = images;
 
     res.status(200).json({ statut: "Succès", product });
   } catch (error) {

@@ -106,17 +106,35 @@ export async function getProductByIdService(productId) {
   });
 }
 
+export async function getProductImage(productId) {
+  return new Promise((resolve, reject) => {
+    db.all(
+      "SELECT * FROM images WHERE productId = ?",
+      [productId],
+      (err, rows) => {
+        if (err) {
+          reject(new Error("Error fetching product by id: " + err));
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
+}
+
 export async function getProductCountByCategoryService() {
-    return new Promise((resolve, reject) => {
-        db.all(
-            "SELECT categorie AS name, COUNT(*) AS number FROM products GROUP BY categorie",
-            (err, rows) => {
-                if (err) {
-                    reject(new Error("Error fetching product counts by category: " + err));
-                } else {
-                    resolve(rows);
-                }
-            }
-        );
-    });
+  return new Promise((resolve, reject) => {
+    db.all(
+      "SELECT categorie AS name, COUNT(*) AS number FROM products GROUP BY categorie",
+      (err, rows) => {
+        if (err) {
+          reject(
+            new Error("Error fetching product counts by category: " + err)
+          );
+        } else {
+          resolve(rows);
+        }
+      }
+    );
+  });
 }

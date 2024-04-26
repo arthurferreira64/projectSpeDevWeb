@@ -8,23 +8,25 @@
   </head>
   <div id="nav"></div>
   <link
-          href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-          rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
   />
   <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    rel="stylesheet"
   />
   <script type="module" src="../../main.js"></script>
   <body class="bg-gray-100">
-  <h1 style="text-align: center; font-size: xx-large;">Listes de tous les produits</h1>
+    <h1 style="text-align: center; font-size: xx-large">
+      Listes de tous les produits
+    </h1>
     <div style="text-align: right; margin-bottom: 10px">
       <label for="search">Recherche</label>
       <input type="text" id="search" name="search" />
     </div>
-  <input placeholder="" type="hidden" id="csrf" />
+    <input placeholder="" type="hidden" id="csrf" />
 
-  <div id="users"></div>
+    <div id="users"></div>
     <script src="produits.js"></script>
     <script>
       appendToDomProducts(getProducts());
@@ -35,21 +37,22 @@
           appendToDomProducts(filterProducts(getProducts()))
         );
     </script>
-  <style>
+    <style>
       .table-bordered {
-          border-collapse: collapse;
-          border: 2px solid black;
+        border-collapse: collapse;
+        border: 2px solid black;
       }
-      .table-bordered th, .table-bordered td {
-          border: 2px solid black;
-          padding: 8px;
-          text-align: center;
+      .table-bordered th,
+      .table-bordered td {
+        border: 2px solid black;
+        padding: 8px;
+        text-align: center;
       }
-  </style>
-  <script src="../../index.js"></script>
-  <script type="module" src="../../main.js"></script>
-  <script>
+    </style>
+    <script src="../../index.js"></script>
+    <script type="module" src="../../main.js"></script>
+    <script>
       getCSRF();
-  </script>
+    </script>
   </body>
 </html>
