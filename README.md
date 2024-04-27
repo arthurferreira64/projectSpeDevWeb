@@ -32,6 +32,12 @@ Lancer le frontend
 npm run dev
 ```
 
+Lancer le frontend test
+
+```powershell, ps1
+npm run test
+```
+
 ### Lancer le backend
 
 Se déplacer dans le bon dossier
