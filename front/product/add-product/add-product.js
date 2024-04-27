@@ -38,22 +38,6 @@ document
         //Si echec
         alert("Erreur dans l'inscription, veuillez réessayer");
       });
-
-    // fetch("http://localhost:3000/create-product", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     CSRF: csrf,
-    //   },
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     window.location.href = "../all-products/produits.html";
-    //   })
-    //   .catch((err) => {
-    //     //Si echec
-    //     alert("Erreur dans l'inscription, veuillez réessayer");
-    //   });
   });
+
+getCSRF();

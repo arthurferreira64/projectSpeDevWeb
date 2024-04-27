@@ -52,7 +52,7 @@ function appendToDomProducts(promise) {
       const productsHTML = products
         .map(
           ({ id, titre, description, prix, categorie }) => `
-                        <tr data-product-id="${id}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr data-product-id="${id}" class="bg-white border-b">
                             <td class="px-6 py-4">${titre}</td>
                             <td class="px-6 py-4 max-w-xl">${description}</td>
                             <td class="px-6 py-4">${prix}</td>
@@ -83,8 +83,8 @@ function appendToDomProducts(promise) {
       document.querySelector(
         "#users"
       ).innerHTML = `<div class="relative overflow-x-auto">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="w-full text-sm text-left rtl:text-right">
+          <thead class="text-xs uppercase bg-gray-50">
               <tr>
                             <th scope="col" class="px-6 py-3">Nom</th>
                             <th scope="col" class="px-6 py-3">Description</th>
